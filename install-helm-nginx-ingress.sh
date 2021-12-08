@@ -15,10 +15,11 @@ gcloud beta container clusters create "cluster-1" --zone "europe-west1-c" --no-e
 
 # after we need to install helm and nginx ingress
 echo "Installing Helm..."
-echo -ne '\n' | helm upgrade --install ingress-nginx ingress-nginx \
-  --repo https://kubernetes.github.io/ingress-nginx \
-  --namespace ingress-nginx --create-namespace
-
+# echo -ne '\n' | helm upgrade --install ingress-nginx ingress-nginx \
+#  --repo https://kubernetes.github.io/ingress-nginx \
+#  --namespace ingress-nginx --create-namespace
+helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+helm install nginx-ingress ingress-nginx/ingress-nginx
 # will wait for nginx ingress to start
 echo "Waiting for NGINX to start..."
 kubectl wait --namespace ingress-nginx \
